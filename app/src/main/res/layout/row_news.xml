@@ -54,7 +54,7 @@
             android:inputType="text"
             android:ellipsize="end"
             app:layout_constraintEnd_toStartOf="@+id/ivNews"
-            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>

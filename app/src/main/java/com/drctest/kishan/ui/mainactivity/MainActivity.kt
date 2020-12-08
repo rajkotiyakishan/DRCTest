@@ -1,5 +1,6 @@
 package com.drctest.kishan.ui.mainactivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.drctest.kishan.R
 import com.drctest.kishan.base.BaseActivity
 import com.drctest.kishan.base.rxjava.autoDispose
+import com.drctest.kishan.ui.newsdetailactivity.NewsDetailActivity
+import com.drctest.kishan.ui.webviewactivity.WebViewActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -33,7 +36,6 @@ class MainActivity : BaseActivity() {
     private fun observeViewModel() {
 
         mainViewModel.newsListResponse.observe(this, Observer { NewsResponse ->
-
             hideProgress()
             val newsListAdapter = NewsListAdapter()
             rvNews.layoutManager = LinearLayoutManager(this)
@@ -42,18 +44,23 @@ class MainActivity : BaseActivity() {
                 newsListAdapter.newsList = it
             }
             newsListAdapter.selectedNewListItemClick.subscribe { news ->
-
+                val intent = Intent(this,NewsDetailActivity::class.java)
+                intent.putExtra("article",news)
+                startActivity(intent)
              }.autoDispose(compositeDisposable)
 
-            Log.e("Response","Got")
-
+            newsListAdapter.selectedNewLinkItemClick.subscribe { news ->
+                val intent = Intent(this,WebViewActivity::class.java)
+                intent.putExtra("url",news.url)
+                startActivity(intent)
+             }.autoDispose(compositeDisposable)
 
 
         })
 
         mainViewModel.errorMessage.observe(this,{errorMessage->
             hideProgress()
-            Log.e("Response","error")
+
             Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
         })
 

@@ -20,6 +20,9 @@ import java.util.*
 class NewsListView(context: Context) : FrameLayout(context) {
     private val selectedNewsItemClickSubject1: PublishSubject<Article> = PublishSubject.create()
     var selectedNewsListItemClick1: Observable<Article> = selectedNewsItemClickSubject1.hide()
+
+    private val selectedLinkItemClickSubject1: PublishSubject<Article> = PublishSubject.create()
+    var selectedNewsLinkItemClick1: Observable<Article> = selectedLinkItemClickSubject1.hide()
     protected val compositeDisposable = CompositeDisposable()
 
 
@@ -42,9 +45,18 @@ class NewsListView(context: Context) : FrameLayout(context) {
 
         tvDate.text = convertDate(article.publishedAt!!.substring(0, article.publishedAt!!.length - 6),"yyyy-MM-dd'T'HH:mm:ss","d MMM yyyy")
 
+        tvAuther.throttleClicks().subscribe {
+
+        }.autoDispose(compositeDisposable)
         layoutMain.throttleClicks().subscribe {
             selectedNewsItemClickSubject1.onNext(article)
 
+        }.autoDispose(compositeDisposable)
+
+        tvAuther.throttleClicks().subscribe {
+            if(tvAuther.text.contains("https://")){
+                selectedLinkItemClickSubject1.onNext(article)
+            }
         }.autoDispose(compositeDisposable)
     }
     private fun convertDate(strDate: String,inputFormat: String,outputFormat:String): String{

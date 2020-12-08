@@ -15,6 +15,9 @@ class NewsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val selectedNewsItemClickSubject: PublishSubject<Article> = PublishSubject.create()
     var selectedNewListItemClick: Observable<Article> = selectedNewsItemClickSubject.hide()
+
+    private val selectedLinkItemClickSubject: PublishSubject<Article> = PublishSubject.create()
+    var selectedNewLinkItemClick: Observable<Article> = selectedLinkItemClickSubject.hide()
     protected val compositeDisposable = CompositeDisposable()
 
 
@@ -43,6 +46,9 @@ class NewsListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return HolidayViewHolder(NewsListView(viewGroup.context).apply {
             selectedNewsListItemClick1.subscribe {
                 selectedNewsItemClickSubject.onNext(it)
+            }
+            selectedNewsLinkItemClick1.subscribe {
+                selectedLinkItemClickSubject.onNext(it)
             }
         })
     }
