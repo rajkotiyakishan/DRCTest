@@ -26,7 +26,7 @@ class NewsResponse {
 class Article {
     @SerializedName("source")
     
-     val source: List<Sources>? = null
+     val source: Sources? = null
 
     @SerializedName("author")
     
@@ -59,11 +59,9 @@ class Article {
 
 class Sources {
     @SerializedName("id")
-    
      val id: String? = null
 
     @SerializedName("name")
-    
      val name: String? = null
 
 }

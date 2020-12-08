@@ -1,10 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView android:background="@android:color/white"
+<androidx.cardview.widget.CardView
+    android:layout_margin="@dimen/dimen_6dp"
+    android:background="@android:color/white"
     app:cardCornerRadius="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutMain"
+        android:layout_margin="@dimen/dimen_20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivNews"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="@dimen/dimen_140dp"
+            android:layout_height="@dimen/dimen_120dp"/>
+        
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            app:layout_constraintTop_toTopOf="parent"
+            android:maxLines="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivNews"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dimen_18sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/dimen_16sp"
+            android:textColor="@color/colorGray"
+            android:id="@+id/tvDate"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            app:layout_constraintBottom_toTopOf="@+id/tvDate"
+            android:textSize="@dimen/dimen_15sp"
+            android:textColor="@color/colorRed"
+            android:id="@+id/tvAuther"
+            android:maxLines="1"
+            android:inputType="text"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toStartOf="@+id/ivNews"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

@@ -6,8 +6,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.drctest.kishan.R
 import com.drctest.kishan.base.BaseActivity
+import com.drctest.kishan.base.rxjava.autoDispose
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     private lateinit var mainViewModel: MainViewModel
@@ -29,9 +32,20 @@ class MainActivity : BaseActivity() {
 
     private fun observeViewModel() {
 
-        mainViewModel.newsListResponse.observe(this, Observer { holidayResponse ->
+        mainViewModel.newsListResponse.observe(this, Observer { NewsResponse ->
 
             hideProgress()
+            val newsListAdapter = NewsListAdapter()
+            rvNews.layoutManager = LinearLayoutManager(this)
+            rvNews.adapter = newsListAdapter
+            NewsResponse.articles?.let {
+                newsListAdapter.newsList = it
+            }
+            newsListAdapter.selectedNewListItemClick.subscribe { news ->
+
+             }.autoDispose(compositeDisposable)
+
+            Log.e("Response","Got")
 
 
 
@@ -39,6 +53,7 @@ class MainActivity : BaseActivity() {
 
         mainViewModel.errorMessage.observe(this,{errorMessage->
             hideProgress()
+            Log.e("Response","error")
             Toast.makeText(this,errorMessage,Toast.LENGTH_SHORT).show()
         })
 
